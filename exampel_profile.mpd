@@ -1,0 +1,87 @@
+type currency 				= enum{
+								EUR,
+								USD
+};
+
+type importance				= enum{
+								Imporance1
+};
+
+type localisation			= enum{
+								Global,
+								Regional
+};
+
+PROFILE Platform {
+	assignable to BusinessFunction;
+	
+	// attributes to add data to BusinessFunction, not used in calculations. 
+	currency		Currency	= EUR;
+	real			TCO;
+	int				NumberOfApplications;
+	importance		BusinessImportance;
+	localisation	Localisation;
+	
+	// Hidden attributes used for calculations and charts. Calculated values by script
+	HIDDEN real		Build;						// Build costs are the total of build costs of the programs realizing the platform
+	HIDDEN real		Impact;						// Impact is the total of cost variation of the programs realizing the platform
+	HIDDEN int		deltaNumberOfApplications = 0;	// the total of application variation of the programs realizing the platform	
+};
+
+// Temporary profile to handle that programs/platforms underlying the platforms/capabilities have not been created yet. This in order to make charts anyway 
+PROFILE Temp {
+	assignable to BusinessFunction, RCCapability;
+	currency	CurrencyTemp	= EUR;
+	
+	real	BuildTemp;
+	real	BuildTempYear1;
+	real	BuildTempYear2;
+	real	BuildTempYear3;
+	real	BuildTempYear4;
+	
+	real	ImpactTemp;
+	real	ImpactTempYear1;
+	real	ImpactTempYear2;
+	real	ImpactTempYear3;
+	real	ImpactTempYear4;
+	
+	int		AppVarTemp;
+	int		AppVarTempYear1;
+	int		AppVarTempYear2;
+	int		AppVarTempYear3;
+	int		AppVarTempYear4;
+};
+
+PROFILE Entity {
+	assignable to BusinessActor;
+	
+	currency		Currency 	= EUR;
+	
+	// Hidden attributes used for aggregation and charts
+
+};
+
+PROFILE BuildAndImpact {
+	assignable to IMWorkpackage;
+	
+	boolean			FillOut		= false;			// default is that values are calculated. Only when explicitly changed to "true", values in WP's/Programs are used by the script
+	int				identifier	;
+	
+	currency		Currency 	= EUR;
+	
+	real			InternalISCost					= 0;
+	real			StudiesAndConsultingAssistance	= 0;
+	real			SoftwareAcquisition				= 0;
+	real			HardwareAcquisition				= 0;
+	real			HardwareSoftwareWriteOff		= 0;
+	real			InternalBusinessCosts			= 0;
+	HIDDEN real		Build							;	// Build costs are the total of the above; calculated by the script
+	
+	real 			InternalISCostsVariations		= 0;
+	real			MaintenanceVariations			= 0;
+	real			ExternalizedServicesVariations	= 0;
+	real			SaaSFeesVariations				= 0;
+	HIDDEN real		Impact							;	// Impact is the total impact on costs of the RUN; summation of the above
+	
+	int				deltaNumberOfApplications		= 0;
+};
