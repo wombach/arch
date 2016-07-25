@@ -1,0 +1,9 @@
+PROFILE Repository {
+	always assigned to BusinessFunction, BusinessObject, BusinessProcess, BusinessActor, BusinessRole, BusinessCollaboration, BusinessInterface, BusinessActivity, BusinessEvent, BusinessInteraction, BusinessProduct, BusinessContract, BusinessService, BusinessValue, BusinessMeaning, BusinessRepresentation, BusinessLocation, ApplicationComponent, ApplicationCollaboration, ApplicationInterface, ApplicationService, ApplicationInteraction, ApplicationFunction, ApplicationDataObject;
+	
+	// Hidden attributes used for calculations and charts. Calculated values by script
+	integer	propid_wipro_digital_workflow_start_date;
+	integer	propid_wipro_digital_workflow_end_date;						
+	string	propid_wipro_digital_workflow_identifier;		
+};
+
